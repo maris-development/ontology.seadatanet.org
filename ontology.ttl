@@ -1,0 +1,72 @@
+
+
+@prefix : <https://ontology.seadatanet.org/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix org:    <http://www.w3.org/ns/org#> .
+@prefix dbpedia:	<http://dbpedia.org/ontology/> .
+
+# Ontology metadata
+:Ontology a owl:Ontology ;
+    rdfs:comment "Ontology for defining SeaDataNet relationships." ;
+    rdfs:label "SeaDataNet Ontology" .
+
+# Classes
+:Depth a owl:Class ;
+  rdfs:label "Depth" ;
+  rdfs:comment "Represents a depth value with optional unit, value, and vertical datum." .
+
+:ObservationDepth a owl:Class ;
+  rdfs:label "Observation Depth" ;
+  rdfs:comment "An observed depth range with minimum and maximum depths." .
+
+:BathymetricDepth a owl:Class ;
+  rdfs:subClassOf :ObservationDepth ;
+  rdfs:label "Bathymetric Depth" ;
+  rdfs:comment "A specific kind of ObservationDepth derived from bathymetric data." .
+
+# Properties
+:collateCentre a owl:ObjectProperty ;
+    rdfs:label "Collating Centre" ;
+    rdfs:domain org:Organization, dbpedia:ResearchProject;
+    rdfs:range org:Organization ;
+    rdfs:comment "Indicates that an organization (EDMO) acts as a collating centre for another org:Organization or dbpedia:ResearchProject." .
+
+:isNationalCollateCentre a owl:DataProperty ;
+    rdfs:label "Is National Collating Centre" ;
+    rdfs:domain org:Organization ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Indicates whether an organization serves as a national collating centre (true/false)." .
+
+:edmoCode a owl:DatatypeProperty ;
+    rdfs:label "EDMO Code" ;
+    rdfs:domain org:Organization ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "The unique EDMO code (integer) for an organization." .
+
+:depthMin a owl:ObjectProperty ;
+  rdfs:domain :ObservationDepth ;
+  rdfs:range :Depth ;
+  rdfs:label "depthMin" .
+
+:depthMax a owl:ObjectProperty ;
+  rdfs:domain :ObservationDepth ;
+  rdfs:range :Depth ;
+  rdfs:label "depthMax" .
+
+:uom a owl:ObjectProperty ;
+  rdfs:domain :Depth ;
+  rdfs:range <http://vocab.nerc.ac.uk/collection/P06/current/> ;
+  rdfs:label "Unit of measure" .
+
+:verticalDatum a owl:ObjectProperty ;
+  rdfs:domain :Depth ;
+  rdfs:range <http://vocab.nerc.ac.uk/collection/L11/current/> ;
+  rdfs:label "Vertical datum" .
+
+:value a owl:DatatypeProperty ;
+  rdfs:domain :Depth ;
+  rdfs:range xsd:decimal ;
+  rdfs:label "Depth value" .
