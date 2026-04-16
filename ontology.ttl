@@ -1,5 +1,3 @@
-
-
 @prefix : <https://ontology.seadatanet.org/#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -9,7 +7,7 @@
 @prefix dbpedia:	<http://dbpedia.org/ontology/> .
 
 # Ontology metadata
-:Ontology a owl:Ontology ;
+<https://ontology.seadatanet.org/> a owl:Ontology ;
     rdfs:comment "Ontology for defining SeaDataNet relationships." ;
     rdfs:label "SeaDataNet Ontology" .
 
@@ -17,6 +15,7 @@
 :Depth a owl:Class ;
   rdfs:label "Depth" ;
   rdfs:comment "Represents a depth value with optional unit, value, and vertical datum." .
+
 
 :ObservationDepth a owl:Class ;
   rdfs:label "Observation Depth" ;
@@ -30,8 +29,11 @@
 # Properties
 :collateCentre a owl:ObjectProperty ;
     rdfs:label "Collating Centre" ;
-    rdfs:domain org:Organization, dbpedia:ResearchProject;
-    rdfs:range org:Organization ;
+    rdfs:domain org:Organization;
+     rdfs:range [
+        a owl:Class ;
+        owl:unionOf ( org:Organization dbpedia:ResearchProject )
+    ] ;
     rdfs:comment "Indicates that an organization (EDMO) acts as a collating centre for another org:Organization or dbpedia:ResearchProject." .
 
 :isNationalCollateCentre a owl:DataProperty ;
@@ -39,12 +41,6 @@
     rdfs:domain org:Organization ;
     rdfs:range xsd:boolean ;
     rdfs:comment "Indicates whether an organization serves as a national collating centre (true/false)." .
-
-:edmoCode a owl:DatatypeProperty ;
-    rdfs:label "EDMO Code" ;
-    rdfs:domain org:Organization ;
-    rdfs:range xsd:integer ;
-    rdfs:comment "The unique EDMO code (integer) for an organization." .
 
 :depthMin a owl:ObjectProperty ;
   rdfs:domain :ObservationDepth ;
@@ -58,12 +54,12 @@
 
 :uom a owl:ObjectProperty ;
   rdfs:domain :Depth ;
-  rdfs:range <http://vocab.nerc.ac.uk/collection/P06/current/> ;
+  rdfs:range skos:Concept ;
   rdfs:label "Unit of measure" .
 
 :verticalDatum a owl:ObjectProperty ;
   rdfs:domain :Depth ;
-  rdfs:range <http://vocab.nerc.ac.uk/collection/L11/current/> ;
+  rdfs:range skos:Concept ;
   rdfs:label "Vertical datum" .
 
 :value a owl:DatatypeProperty ;
