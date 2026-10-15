@@ -29,14 +29,14 @@
 # Properties
 :collateCentre a owl:ObjectProperty ;
     rdfs:label "Collating Centre" ;
-    rdfs:domain org:Organization;
-     rdfs:range [
+    rdfs:domain [
         a owl:Class ;
         owl:unionOf ( org:Organization dbpedia:ResearchProject )
     ] ;
-    rdfs:comment "Indicates that an organization (EDMO) acts as a collating centre for another org:Organization or dbpedia:ResearchProject." .
+    rdfs:range org:Organization ;
+    rdfs:comment "Links an org:Organization or dbpedia:ResearchProject to the organization (EDMO) that acts as its collating centre." .
 
-:isNationalCollateCentre a owl:DataProperty ;
+:isNationalCollateCentre a owl:DatatypeProperty ;
     rdfs:label "Is National Collating Centre" ;
     rdfs:domain org:Organization ;
     rdfs:range xsd:boolean ;
